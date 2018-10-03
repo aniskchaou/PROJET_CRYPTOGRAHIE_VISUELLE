@@ -14,7 +14,7 @@ import java.sql.Statement;
 import java.util.Date;
 import java.util.Random;
 
-public class MySQLAccess {
+public class DataBaseManagement {
 
     //initalisation
     private Connection connect = null;
@@ -141,7 +141,7 @@ public class MySQLAccess {
             preparedStatement.setString(5, "gen_" + rand_code + ".png");
             preparedStatement.setInt(6, 1);
             preparedStatement.setString(7, captcha[rand_captcha]);
-            preparedStatement.setInt(8, 0);
+            preparedStatement.setInt(8, 1);
             preparedStatement.executeUpdate();
 
         } catch (Exception e) {
@@ -468,6 +468,31 @@ public class MySQLAccess {
         } else {
             return false;
         }
+    }
+    
+    
+        void finish_key_checking(String code) throws ClassNotFoundException, SQLException {
+        // This will load the MySQL driver, each DB has its own driver
+        Class.forName("com.mysql.jdbc.Driver");
+        // Setup the connection with the DB
+        connect = DriverManager.getConnection("jdbc:mysql://localhost/projet_securite?" + "user=root&password=");
+
+        // Statements allow to issue SQL queries to the database
+        statement = connect.createStatement();
+
+        try {
+            // PreparedStatements can use variables and are more efficient
+            preparedStatement = connect
+                    .prepareStatement("UPDATE projet_securite.key_generation  SET check_key =? WHERE code=?");
+
+            preparedStatement.setInt(1, 0);
+            preparedStatement.setString(2, code);
+            preparedStatement.executeUpdate();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
 
 }

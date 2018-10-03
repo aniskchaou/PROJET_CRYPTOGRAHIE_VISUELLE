@@ -32,7 +32,7 @@ public class AuthServlet extends HttpServlet {
         String img = request.getParameter("img").toString();
 
         //retrieve the captcha code from database 
-        MySQLAccess msa = new MySQLAccess();
+        DataBaseManagement msa = new DataBaseManagement();
         String captcha = msa.get_captcha(img);
 
         //prepare the writer in order to print the message 
@@ -68,7 +68,7 @@ public class AuthServlet extends HttpServlet {
         String code_user = request.getSession(false).getAttribute("code").toString();
 
         //seek the user and the password in the databse
-        MySQLAccess msa = new MySQLAccess();
+        DataBaseManagement msa = new DataBaseManagement();
         boolean connexion = msa.check_user_connexion(user_login, user_pass);
 
         //prepare writer

@@ -1,5 +1,6 @@
 
 import java.io.File;
+import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.opencv.core.Core;
@@ -9,7 +10,7 @@ import org.opencv.imgcodecs.Imgcodecs;
 public class CkeckKey extends Thread {
 
     String s = null;
-    MySQLAccess dao;
+    DataBaseManagement dao;
 
     public static void main(String[] args) {
         CkeckKey hc = new CkeckKey();
@@ -19,7 +20,7 @@ public class CkeckKey extends Thread {
     }
 
     public void run() {
-        dao = new MySQLAccess();
+        dao = new DataBaseManagement();
         //load library
         System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
         while (true) {
@@ -53,10 +54,14 @@ public class CkeckKey extends Thread {
                         //save image 
                         Imgcodecs.imwrite("web\\res\\key_generation\\generated\\gen_" + token + ".png", dstination_image);
                     }
-
+                        dao.finish_key_checking(token);
                     //wait 
                     sleep(1000);
                 } catch (InterruptedException ex) {
+                    Logger.getLogger(CkeckKey.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (ClassNotFoundException ex) {
+                    Logger.getLogger(CkeckKey.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (SQLException ex) {
                     Logger.getLogger(CkeckKey.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }

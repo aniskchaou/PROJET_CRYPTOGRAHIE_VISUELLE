@@ -17,7 +17,7 @@ import org.opencv.imgproc.Imgproc;
 public class ImageGeneration extends Thread {
 
     String s = null;
-    MySQLAccess dao;
+    DataBaseManagement dao;
 
     public static void main(String[] args) {
         ImageGeneration hc = new ImageGeneration();
@@ -27,7 +27,7 @@ public class ImageGeneration extends Thread {
     }
 
     public void run() {
-        dao = new MySQLAccess();
+        dao = new DataBaseManagement();
 
         while (true) {
             String token = dao.find_captcha();

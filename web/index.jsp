@@ -23,7 +23,7 @@
                             <li class="breadcrumb-item active" aria-current="page"><h1>I have a key </h1></li>
                         </ol>
                     </nav>
-                    <form class="form-horizontal" method="post" action="TextServlet" enctype="multipart/form-data">
+                    <form class="form-horizontal" method="post" action="CaptchaServlet" enctype="multipart/form-data">
                         <fieldset>
                             <!-- Text input-->
                             <div class="form-group">

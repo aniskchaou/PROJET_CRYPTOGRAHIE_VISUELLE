@@ -29,7 +29,7 @@ public class KeyGenerationServlet extends HttpServlet {
         //initialisation
         int code = 0;
         HttpSession ses = request.getSession(true);
-        MySQLAccess msa = new MySQLAccess();
+        DataBaseManagement msa = new DataBaseManagement();
 
         //generation the keys 
         try {

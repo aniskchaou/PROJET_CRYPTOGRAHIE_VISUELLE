@@ -10,7 +10,7 @@ import org.opencv.imgcodecs.Imgcodecs;
 
 public class KeyGeneration extends Thread {
 
-    MySQLAccess dao;
+    DataBaseManagement dao;
 
     public static void main(String[] args) {
         KeyGeneration hc = new KeyGeneration();
@@ -20,7 +20,7 @@ public class KeyGeneration extends Thread {
     }
 
     public void run() {
-        dao = new MySQLAccess();
+        dao = new DataBaseManagement();
         String code = null;
 
         while (true) {
@@ -113,7 +113,7 @@ public class KeyGeneration extends Thread {
                     }
                 }
                 //wait
-                sleep(10000);
+                sleep(4000);
             } catch (InterruptedException ex) {
                 Logger.getLogger(KeyGeneration.class.getName()).log(Level.SEVERE, null, ex);
             }

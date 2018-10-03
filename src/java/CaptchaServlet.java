@@ -32,9 +32,9 @@ import org.opencv.core.Mat;
 import org.opencv.imgcodecs.Imgcodecs;
 import org.opencv.imgproc.Imgproc;
 
-@WebServlet(urlPatterns = {"/TextServlet"})
+@WebServlet(urlPatterns = {"/CaptchaServlet"})
 @MultipartConfig
-public class TextServlet extends HttpServlet {
+public class CaptchaServlet extends HttpServlet {
 
     public static boolean test = false;
 
@@ -62,7 +62,7 @@ public class TextServlet extends HttpServlet {
         final String fileName = getFileName(filePart);
 
         //get user and password from database
-        MySQLAccess msa = new MySQLAccess();
+        DataBaseManagement msa = new DataBaseManagement();
         boolean connexion = msa.check_user_connexion(user_login, user_pass);
 
         //print writer
@@ -112,13 +112,13 @@ public class TextServlet extends HttpServlet {
                 try {
                     msa.generate_images(token, fileName, tab[1]);
                 } catch (ClassNotFoundException ex) {
-                    Logger.getLogger(TextServlet.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(CaptchaServlet.class.getName()).log(Level.SEVERE, null, ex);
                 } catch (SQLException ex) {
-                    Logger.getLogger(TextServlet.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(CaptchaServlet.class.getName()).log(Level.SEVERE, null, ex);
                 }
                
                 //redirect tp new servlet 
-                response.sendRedirect("http://localhost:8080/ProjetSecurite/NewServlet");
+                response.sendRedirect("http://localhost:8080/ProjetSecurite/CaptchaCheckingServlet");
             } else {
                 out.println("<br><br><div class=\"alert alert-danger\" role=\"alert\">\n <h4> There is a Problem Uploading Your Key .</h4>\n"
                         + "<h6>Please  <a href='index.jsp'><span class=\"badge badge-success\">Return </span></a>to the Home Page .</h6> </div>  ");

@@ -8,8 +8,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet(urlPatterns = {"/NewServlet"})
-public class NewServlet extends HttpServlet {
+@WebServlet(urlPatterns = {"/CaptchaCheckingServlet"})
+public class CaptchaCheckingServlet extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -31,7 +31,7 @@ public class NewServlet extends HttpServlet {
             out.println("<br><br><div class=\"alert alert-primary\" role=\"alert\">\n <h4> Enter the Code Below :</h4>\n"
                     + "<h6> The User Code is : <span class=\"badge badge-success\">" + session + " </span></h6> </div>  ");
 
-            out.println("<form class='form-horizontal' method='post' action='NewServlet' >");
+            out.println("<form class='form-horizontal' method='post' action='CaptchaCheckingServlet' >");
             out.println("<img src='res/generated/" + session + ".png'  width='700' height='700' /><br>");
  
             out.println("<div class=\"form-group\">\n"
@@ -65,7 +65,7 @@ public class NewServlet extends HttpServlet {
         String captcha = request.getParameter("captcha");
         
         //seek the captcha from database
-        MySQLAccess msa = new MySQLAccess();
+        DataBaseManagement msa = new DataBaseManagement();
         String code = msa.check_capcha(captcha);
        
         //print html
